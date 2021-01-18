@@ -5,7 +5,7 @@
 "port": 5432,
 "username": "postgres",
 "password": "87975019",
-"database": "db_app",
+"database": "db_sistem",
 "entities":[
     "./src/models/*.ts"
 ],

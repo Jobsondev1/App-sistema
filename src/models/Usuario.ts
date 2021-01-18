@@ -1,7 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm"
+import { Column, Entity, PrimaryGeneratedColumn, BeforeInsert, BeforeUpdate} from "typeorm"
 
-@Entity( 'usuario')
-class usuario {
+import bcrypt from 'bcryptjs';
+@Entity( 'users')
+class User {
 
     @PrimaryGeneratedColumn('uuid')
     id:string;
@@ -10,13 +11,14 @@ class usuario {
     nome:string;
 
     @Column()
-    password: string
+    password: string;
 
-    @UpdateDateColumn()
-    criado_at: Date;
+    @BeforeInsert()
+    @BeforeUpdate()
+    hashPassword(){
+        this.password = bcrypt.hashSync(this.password, 8);
+    }
 
-    @UpdateDateColumn()
-    atualizado_at: Date;
 }
 
-export default usuario;
+export default User;
